@@ -1,4 +1,4 @@
-const BikeOrWalk = () => {
+const BikeOrWalk = (props) => {
     // Discuss with client:
         // We're not sure what the travel time will be until we suggest biking or walking. 
         // Are we prioritizing travel length or podcast length? 
