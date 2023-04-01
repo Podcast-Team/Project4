@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './styles/sass/style.css';
 import Form from './components/Form.js';
 
