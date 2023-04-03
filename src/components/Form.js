@@ -5,11 +5,14 @@ import BikeOrWalk from "./BikeOrWalk.js";
 import PodcastInfo from "./PodcastInfo.js";
 
 const Form = () => {
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
   const [location, setLocation] = useState("");
   const [destination, setDestination] = useState("");
-  const [podcastSearch, setPodcastSearch] = useState([]);
+  const [podcastSearch, setPodcastSearch] = useState('');
   const [error, setError] = useState(false);
+  const [walkTime, setWalkTime] = useState ('');
+  const [bikeTime, setBikeTime] = useState ('');
+  const [podcastList, setPodcastList] = useState ([])
 
   // Onchange listener for starting location
   // Onchange listener for destination
@@ -20,14 +23,95 @@ const Form = () => {
 
   // Function that handles when podcast form is submitted
   // Podcast axios call that triggers when podcast form is submitted
+  const handleLocationChange = (e) => {
+    setLocation (e.target.value)
+    // console.log (location)
+  }
+
+  const handleDestinationChange = (e) => {
+    setDestination (e.target.value)
+  }
+
+  const handlePodcastSearchChange = (e) => {
+    setPodcastSearch (e.target.value)
+  }
+  
+  const onSubmitLocation = (e) => {
+    e.preventDefault ()
+      axios ({
+        url: 'https://www.mapquestapi.com/directions/v2/route',
+          method: 'GET',
+          dataResponse: 'json',
+          params: {
+              key: 'GajCx4GDQ4BbxuYSyMwSYdn9B65f9Vnx',
+              from: location,
+              to: destination,
+              routeType: 'pedestrian',
+          }
+      }).then((resp) => {
+        console.log(resp.data);
+        setWalkTime (resp.data.route.formattedTime);
+        console.log (walkTime);
+        
+        
+      })
+        
+    
+      axios ({
+        url: 'https://www.mapquestapi.com/directions/v2/route',
+            method: 'GET',
+            dataResponse: 'json',
+            params: {
+                key: 'GajCx4GDQ4BbxuYSyMwSYdn9B65f9Vnx',
+                from: location,
+                to: destination,
+                routeType: 'bicycle',
+            }
+        }).then((resp) => {
+          console.log(resp.data);
+          setBikeTime (resp.data.route.formattedTime);
+          console.log (bikeTime);
+        })
+
+     }
+  
+
+  const onSubmitPodSearch = (e) => {
+    e.preventDefault ()
+    const { Client } = require('podcast-api');
+
+    const client = Client({ apiKey: '84ea935001f44836a966c059250896de' });
+    client.search({
+      q: podcastSearch,
+      sort_by_date: 0,
+      offset: 0,
+      len_min: 10,
+      type: 'podcast',
+      only_in: 'title,description',
+      language: 'English',
+      page_size: 5,
+    })
+    .then((response) => {
+      console.log(response.data.results);
+      setPodcastList (response.data.results.map((list)=>{
+        // console.log (podcastList)
+        return list 
+      
+      }));
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+  }
+
 
   return (
     <>
-      <form action="submit">
+      <form action="submit" onSubmit = {onSubmitLocation}>
         <label htmlFor="location" className="sr-only">
           Where are you starting from?
         </label>
-        <input
+        <input onChange = {handleLocationChange}
           value={location}
           type="text"
           id="location"
@@ -36,7 +120,7 @@ const Form = () => {
         <label htmlFor="destination" className="sr-only">
           Where are you headed?
         </label>
-        <input
+        <input onChange = {handleDestinationChange}
           value={destination}
           type="text"
           id="destination"
@@ -45,11 +129,11 @@ const Form = () => {
         <button type="submit">Submit</button>
       </form>
 
-      <form action="submit">
+      <form action="submit" onSubmit = {onSubmitPodSearch}>
         <label htmlFor="podSearch" className="sr-only">
           What podcast do you want to listen to?
         </label>
-        <input
+        <input onChange = {handlePodcastSearchChange}
           value={podcastSearch}
           type="text"
           id="podSearch"
@@ -68,7 +152,7 @@ const Form = () => {
     // MapDisplay component
     // BikeOrWalk component
   );
-};
+}
 
 export default Form;
 
