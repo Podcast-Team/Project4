@@ -20,14 +20,63 @@ const Form = () => {
 
   // Function that handles when podcast form is submitted
   // Podcast axios call that triggers when podcast form is submitted
+  const handleLocationChange = (e) => {
+    setLocation (e.target.value)
+    // console.log (location)
+  }
+
+  const handleDestinationChange = (e) => {
+    setDestination (e.target.value)
+  }
+
+  const handlepodcastSearchChange = (e) => {
+    setPodcastSearch (e.target.value)
+  }
+  
+  const onSubmitLocation = (e) => {
+    e.preventDefault ()
+      axios ({
+      url: 'https://www.mapquestapi.com/directions/v2/route',
+          method: 'GET',
+          dataResponse: 'json',
+          params: {
+              key: 'GajCx4GDQ4BbxuYSyMwSYdn9B65f9Vnx',
+              from: {location},
+              to: {destination},
+              routeType: 'pedestrian',
+          }
+      }).then((resp) => {
+        console.log(resp.data);
+      })
+    
+      axios ({
+        url: 'https://www.mapquestapi.com/directions/v2/route',
+            method: 'GET',
+            dataResponse: 'json',
+            params: {
+                key: 'GajCx4GDQ4BbxuYSyMwSYdn9B65f9Vnx',
+                from: {location},
+                to: {destination},
+                routeType: 'bicycle',
+            }
+        }).then((resp) => {
+          console.log(resp.data);
+        })
+
+     }
+  
+
+  const onSubmitPodSearch = (e) => {
+    e.preventDefault ()
+  }
 
   return (
     <>
-      <form action="submit">
+      <form action="submit" onSubmit = {onSubmitLocation}>
         <label htmlFor="location" className="sr-only">
           Where are you starting from?
         </label>
-        <input
+        <input onChange = {handleLocationChange}
           value={location}
           type="text"
           id="location"
@@ -36,7 +85,7 @@ const Form = () => {
         <label htmlFor="destination" className="sr-only">
           Where are you headed?
         </label>
-        <input
+        <input onChange = {handleDestinationChange}
           value={destination}
           type="text"
           id="destination"
@@ -45,11 +94,11 @@ const Form = () => {
         <button type="submit">Submit</button>
       </form>
 
-      <form action="submit">
+      <form action="submit" onSubmit = {onSubmitPodSearch}>
         <label htmlFor="podSearch" className="sr-only">
           What podcast do you want to listen to?
         </label>
-        <input
+        <input onChange = {handlepodcastSearchChange}
           value={podcastSearch}
           type="text"
           id="podSearch"
@@ -68,7 +117,7 @@ const Form = () => {
     // MapDisplay component
     // BikeOrWalk component
   );
-};
+}
 
 export default Form;
 
