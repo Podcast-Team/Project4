@@ -1,4 +1,7 @@
-const PodcastInfo = () => {
+import {useState} from 'react';
+
+const PodcastInfo = (props) => {
+    const [podcast, setPodcast] = useState('');
     // useState for selected podcast - string
 
     // Onclick event that selects the clicked button's podcast
