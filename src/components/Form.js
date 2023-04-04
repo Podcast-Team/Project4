@@ -14,6 +14,8 @@ const Form = () => {
   const [bikeTime, setBikeTime] = useState ('');
   const [podcastList, setPodcastList] = useState ([])
 
+  const [message, setMessage] = useState("")
+
   // Onchange listener for starting location
   // Onchange listener for destination
   // Onchange listener for podcast serach
@@ -78,8 +80,11 @@ const Form = () => {
 
   const onSubmitPodSearch = (e) => {
     e.preventDefault ()
+    if (podcastSearch.trim() ===""){
+      setMessage('Please enter a valid search')
+    } else {
+      setMessage('Please wait, results are loading')
     const { Client } = require('podcast-api');
-
     const client = Client({ apiKey: '84ea935001f44836a966c059250896de' });
     client.search({
       q: podcastSearch,
@@ -96,13 +101,16 @@ const Form = () => {
       setPodcastList (response.data.results.map((list)=>{
         // console.log (podcastList)
         return list 
-      
       }));
+      setMessage('')
+      console.log(podcastList)
     })
     .catch((error) => {
       console.log(error)
+      setMessage('Sorry, the call didnt work')
     });
   }
+}
 
 
   return (
@@ -141,6 +149,8 @@ const Form = () => {
         />
         <button type="submit">Submit</button>
       </form>
+
+      <PodcastInfo  podcast={podcastList}  message={message}  />
     </>
 
     // Podcast form
