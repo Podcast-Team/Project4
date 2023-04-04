@@ -1,6 +1,7 @@
 @use "./partials/setup";
 @use "./partials/variables" as *;
 
-main {
+body {
     background-color: $background;
+    color: $primary;
 }

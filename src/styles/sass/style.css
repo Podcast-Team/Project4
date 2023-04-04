@@ -262,6 +262,7 @@ html {
   margin: 0 auto;
 }
 
-main {
+body {
   background-color: #001E31;
-}
+  color: #C2EDD8;
+}/*# sourceMappingURL=style.css.map */
