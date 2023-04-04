@@ -15,8 +15,7 @@ const Form = () => {
   const [podcastList, setPodcastList] = useState([]);
 
   const [message, setMessage] = useState("");
-
-  
+  const [userChoice, setUserChoice] = useState ("")
 
   // Onchange listener for starting location
   // Onchange listener for destination
@@ -109,9 +108,13 @@ const Form = () => {
     }
   };
 
-  const filterWalkBike = () => {
-    
+  const handleUserChoice = (e, userChoice) => {
+    e.preventDefault ()
+    setUserChoice (userChoice)
+    console.log (userChoice)
   }
+
+  
 
   return (
     <>
@@ -153,10 +156,10 @@ const Form = () => {
         <button type="submit">Submit</button>
       </form>
 
-    
 
-      <BikeOrWalk walkTime={walkTime} bikeTime={bikeTime} location={location} destination={destination}/>
-      <PodcastInfo podcast={podcastList} message={message} />
+
+      <BikeOrWalk walkTime={walkTime} bikeTime={bikeTime} location={location} destination={destination} handleUserChoice= {handleUserChoice} />
+      <PodcastInfo podcast={podcastList} message={message} bikeTime={bikeTime} walkTime={walkTime} userChoice={userChoice} />
     </>
 
     // Podcast form

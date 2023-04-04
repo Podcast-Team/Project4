@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-const [userChoice, setUserChoice] = useState("");
+
 
 const BikeOrWalk = (props) => {
   // Discuss with client:
@@ -14,15 +14,8 @@ const BikeOrWalk = (props) => {
   // Render message that recommends not using headphone while biking
   // Otherwise, suggest walk
 
-
-const onSubmitWalk = (e) => {
-    e.preventDefault ()
-    setUserChoice (e.target.value)
-    console.log(e)
-}
-
-const onSubmitBike = (e) => {
-    e.preventDefault ()
+const [userChoice, setUserChoice] = useState("");
+const onclick = (e) => {
     setUserChoice (e.target.value)
     console.log(e)
 }
@@ -43,15 +36,19 @@ const onSubmitBike = (e) => {
           <ul>
             <li>
               <p>Walking time: {props.walkTime}</p>
-              <form onSubmit = {onSubmitWalk}>
-                <button type="submit" value="walk">I want to walk</button>
+              <form onSubmit = {(event => {
+                props.handleUserChoice (event, userChoice)
+              })}>
+                <button onClick = {onclick} type="submit" value="walk">I want to walk</button>
               </form>
               
             </li>
             <li>
               <p>Biking time: {props.bikeTime}</p>
-              <form onSubmit = {onSubmitBike}>
-                <button type="submit" value="bike">I want to bike</button>
+              <form onSubmit = {(event => {
+                props.handleUserChoice (event, userChoice)
+              })}>
+                <button onClick = {onclick} type="submit" value="bike">I want to bike</button>
               </form>
             </li>
           </ul>
