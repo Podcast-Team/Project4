@@ -15,10 +15,7 @@ const PodcastInfo = (props) => {
         <ul>
             <p>{props.message}</p>
             {props.podcast.map((podcastList)=>{
-                console.log(podcastList)
-
                  const lengthInMin = Math.round((podcastList.audio_length_sec / 60))
-                 console.log(lengthInMin)
 
                 return (<li key={podcastList.id}>
 

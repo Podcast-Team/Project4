@@ -70,6 +70,7 @@ const Form = () => {
 
   const onSubmitPodSearch = (e) => {
     e.preventDefault();
+    setPodcastList([]);
     if (podcastSearch.trim() === "") {
       setMessage("Please enter a valid search");
     } else {
@@ -88,18 +89,17 @@ const Form = () => {
           page_size: 5,
         })
         .then((response) => {
-          setPodcastList(
-            response.data.results.map((list) => {
-              if (list){
-                setMessage("");
-                console.log(list);
+          setMessage("");
+          if (response.data.results.length === 0) {
+            setMessage("Sorry, we couldn't find a podcast like that, try again!");
+          }
+          else {
+            setPodcastList(
+              response.data.results.map((list) => {
                 return list;
-              }
-              else {
-                setMessage("Sorry, we couldn't find a podcast like that.")
-              }
-            })
-          );
+              })
+            );
+          }
         })
         .catch((error) => {
           setMessage("Sorry, the call didnt work");
