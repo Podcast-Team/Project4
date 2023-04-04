@@ -1,3 +1,7 @@
+import {useState} from "react";
+
+const [userChoice, setUserChoice] = useState("");
+
 const BikeOrWalk = (props) => {
   // Discuss with client:
   // We're not sure what the travel time will be until we suggest biking or walking.
@@ -10,6 +14,18 @@ const BikeOrWalk = (props) => {
   // Render message that recommends not using headphone while biking
   // Otherwise, suggest walk
 
+
+const onSubmitWalk = (e) => {
+    e.preventDefault ()
+    setUserChoice (e.target.value)
+    console.log(e)
+}
+
+const onSubmitBike = (e) => {
+    e.preventDefault ()
+    setUserChoice (e.target.value)
+    console.log(e)
+}
   return (
     <>
       {props.walkTime && props.bikeTime ? (
@@ -21,18 +37,27 @@ const BikeOrWalk = (props) => {
               your bike.
             </em>
           </p>
+          <p> You are travelling from {props.location} to {props.destination}. Below is the estimated walking and bike time to your destination!
+          </p>
+
           <ul>
             <li>
               <p>Walking time: {props.walkTime}</p>
-              <button>I want to walk</button>
+              <form onSubmit = {onSubmitWalk}>
+                <button type="submit" value="walk">I want to walk</button>
+              </form>
+              
             </li>
             <li>
               <p>Biking time: {props.bikeTime}</p>
-              <button>I want to bike</button>
+              <form onSubmit = {onSubmitBike}>
+                <button type="submit" value="bike">I want to bike</button>
+              </form>
             </li>
           </ul>
         </>
       ) : null}
+      
     </>
   );
 };

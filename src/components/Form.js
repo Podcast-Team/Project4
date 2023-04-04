@@ -16,6 +16,8 @@ const Form = () => {
 
   const [message, setMessage] = useState("");
 
+  
+
   // Onchange listener for starting location
   // Onchange listener for destination
   // Onchange listener for podcast serach
@@ -107,6 +109,10 @@ const Form = () => {
     }
   };
 
+  const filterWalkBike = () => {
+    
+  }
+
   return (
     <>
       <form action="submit" onSubmit={onSubmitLocation}>
@@ -147,7 +153,9 @@ const Form = () => {
         <button type="submit">Submit</button>
       </form>
 
-      <BikeOrWalk walkTime={walkTime} bikeTime={bikeTime} />
+    
+
+      <BikeOrWalk walkTime={walkTime} bikeTime={bikeTime} location={location} destination={destination}/>
       <PodcastInfo podcast={podcastList} message={message} />
     </>
 
