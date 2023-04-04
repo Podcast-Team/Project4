@@ -52,8 +52,7 @@ a {
 abbr[title] {
   border-bottom: none;
   text-decoration: underline;
-  -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted;
+  text-decoration: underline dotted;
 }
 
 b,
@@ -250,8 +249,7 @@ html {
   border: 0;
   padding: 0;
   white-space: nowrap;
-  -webkit-clip-path: inset(100%);
-          clip-path: inset(100%);
+  clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
@@ -260,4 +258,13 @@ html {
   max-width: 1200px;
   width: 85%;
   margin: 0 auto;
+}
+
+main {
+  background-color: #001E31;
+}
+
+body {
+  background-color: #001E31;
+  color: #C2EDD8;
 }
