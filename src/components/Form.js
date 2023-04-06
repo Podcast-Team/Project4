@@ -38,6 +38,11 @@ const Form = () => {
     setPodcastSearch(e.target.value);
   };
 
+  const handleUserChoice = (e, userChoice) => {
+    e.preventDefault();
+    setUserChoice(userChoice);
+  };
+
   const onSubmitLocation = (e) => {
     e.preventDefault();
     axios({
@@ -70,6 +75,7 @@ const Form = () => {
   };
   const onSubmitPodSearch = (e) => {
     e.preventDefault();
+    
     let minLength;
     let maxLength;
     if (userChoice === "walk") {
@@ -125,10 +131,7 @@ const Form = () => {
     }
   };
 
-  const handleUserChoice = (e, userChoice) => {
-    e.preventDefault();
-    setUserChoice(userChoice);
-  };
+
 
   const timeWalk = walkTime;
   const [walkHours, walkMinutes, walkSeconds] = timeWalk.split(":").map(Number);
