@@ -12,10 +12,10 @@ const BikeOrWalk = (props) => {
   // Render message that recommends not using headphone while biking
   // Otherwise, suggest walk
 
-  const [userChoice, setUserChoice] = useState("");
-  const onclick = (e) => {
-    setUserChoice(e.target.value);
-  };
+  // const [userChoice, setUserChoice] = useState("");
+  // const onSubmit = (e) => {
+  //   setUserChoice(e.target.firstChild.value)
+  // };
 
 
 
@@ -41,13 +41,11 @@ const BikeOrWalk = (props) => {
               <p>Walking time: {props.walkTime}</p>
               <form
                 onSubmit={(event) => {
-             
-                 props.handleUserChoice(event, userChoice)
-                 props.handleSubmit(event, userChoice)
-
+                 props.handleUserChoice(event, event.target.firstChild.value)
+                 props.handleSubmit(event, event.target.firstChild.value)
                 }}
               >
-                <button onClick={onclick} type="submit" value="walk">
+                <button type="submit" value="walk">
                   I want to walk
                 </button>
               </form>
@@ -56,11 +54,11 @@ const BikeOrWalk = (props) => {
               <p>Biking time: {props.bikeTime}</p>
               <form
                 onSubmit={(event) => {
-                  props.handleUserChoice(event, userChoice);
-                  props.handleSubmit(event);
+                  props.handleUserChoice(event, event.target.firstChild.value);
+                  props.handleSubmit(event, event.target.firstChild.value);
                 }}
               >
-                <button onClick={onclick} type="submit" value="bike">
+                <button type="submit" value="bike">
                   I want to bike
                 </button>
               </form>

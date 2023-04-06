@@ -1,6 +1,6 @@
 // Import useState hook
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import BikeOrWalk from "./BikeOrWalk.js";
 import PodcastInfo from "./PodcastInfo.js";
 
@@ -13,19 +13,18 @@ const Form = () => {
   const [walkTime, setWalkTime] = useState("");
   const [bikeTime, setBikeTime] = useState("");
   const [podcastList, setPodcastList] = useState([]);
-
   const [message, setMessage] = useState("");
-  const [userChoice, setUserChoice] = useState("");
 
   // Onchange listener for starting location
   // Onchange listener for destination
-  // Onchange listener for podcast serach
+  // Onchange listener for podcast search
 
   // Function that handles when location form is submitted
   // Location axios call that triggers when map form is submitted
 
   // Function that handles when podcast form is submitted
   // Podcast axios call that triggers when podcast form is submitted
+
   const handleLocationChange = (e) => {
     setLocation(e.target.value);
   };
@@ -38,9 +37,11 @@ const Form = () => {
     setPodcastSearch(e.target.value);
   };
 
-  const handleUserChoice = (e, userChoice) => {
+  let userChoice;
+  const handleUserChoice = (e, target) => {
     e.preventDefault();
-    setUserChoice(userChoice);
+    userChoice = target;
+    console.log(userChoice)
   };
 
   const onSubmitLocation = (e) => {
@@ -73,9 +74,22 @@ const Form = () => {
       setBikeTime(resp.data.route.formattedTime);
     });
   };
+
+  const timeWalk = walkTime;
+  const [walkHours, walkMinutes, walkSeconds] = timeWalk.split(":").map(Number);
+  const totalWalkMinutes = Math.round(
+    walkHours * 60 + walkMinutes + walkSeconds / 60
+  );
+
+  const timeBike = bikeTime;
+  const [bikeHours, bikeMinutes, bikeSeconds] = timeBike.split(":").map(Number);
+  const totalBikeMinutes = Math.round(
+    bikeHours * 60 + bikeMinutes + bikeSeconds / 60
+  );
+
   const onSubmitPodSearch = (e) => {
     e.preventDefault();
-    
+
     let minLength;
     let maxLength;
     if (userChoice === "walk") {
@@ -91,7 +105,7 @@ const Form = () => {
     setPodcastList([]);
     if (podcastSearch.trim() === "") {
       setMessage("Please enter a valid search");
-      setUserChoice("");
+      // setUserChoice("");
     } else {
       setMessage("Please wait, results are loading");
       const { Client } = require("podcast-api");
@@ -121,29 +135,13 @@ const Form = () => {
               })
             );
           }
-
         })
         .catch((error) => {
           setMessage("Sorry, the call didnt work");
-          setUserChoice("");
+          // setUserChoice("");
         });
-
     }
   };
-
-
-
-  const timeWalk = walkTime;
-  const [walkHours, walkMinutes, walkSeconds] = timeWalk.split(":").map(Number);
-  const totalWalkMinutes = Math.round(
-    walkHours * 60 + walkMinutes + walkSeconds / 60
-  );
-
-  const timeBike = bikeTime;
-  const [bikeHours, bikeMinutes, bikeSeconds] = timeBike.split(":").map(Number);
-  const totalBikeMinutes = Math.round(
-    bikeHours * 60 + bikeMinutes + bikeSeconds / 60
-  );
 
   return (
     <>
