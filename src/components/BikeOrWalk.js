@@ -1,6 +1,4 @@
-import {useState} from "react";
-
-
+import { useState } from "react";
 
 const BikeOrWalk = (props) => {
   // Discuss with client:
@@ -14,17 +12,12 @@ const BikeOrWalk = (props) => {
   // Render message that recommends not using headphone while biking
   // Otherwise, suggest walk
 
-const [userChoice, setUserChoice] = useState("");
-const onclick = (e) => {
-    setUserChoice (e.target.value)
-}
+  const [userChoice, setUserChoice] = useState("");
+  const onclick = (e) => {
+    setUserChoice(e.target.value);
+  };
 
-const handleUserSubmit = () => {
-  const handleUserChoice = ((event => {
-    props.handleUserChoice(event, userChoice)
-  }))
-    props.handleSubmit()
-}
+
 
   return (
     <>
@@ -37,30 +30,44 @@ const handleUserSubmit = () => {
               your bike.
             </em>
           </p>
-          <p> You are travelling from {props.location} to {props.destination}. Below is the estimated walking and bike time to your destination!
+          <p>
+            {" "}
+            You are traveling from {props.location} to {props.destination}.
+            Below is the estimated walking and bike time to your destination!
           </p>
 
           <ul>
             <li>
               <p>Walking time: {props.walkTime}</p>
-              <form onSubmit = {handleUserSubmit}>
-                <button onClick = {onclick} type="submit" value="walk">I want to walk</button>
+              <form
+                onSubmit={(event) => {
+             
+                 props.handleUserChoice(event, userChoice)
+                 props.handleSubmit(event, userChoice)
+
+                }}
+              >
+                <button onClick={onclick} type="submit" value="walk">
+                  I want to walk
+                </button>
               </form>
-              
             </li>
             <li>
               <p>Biking time: {props.bikeTime}</p>
-              <form onSubmit = {(event => {
-                props.handleUserChoice (event, userChoice)
-                props.handleSubmit(event)
-              })}>
-                <button onClick = {onclick} type="submit" value="bike">I want to bike</button>
+              <form
+                onSubmit={(event) => {
+                  props.handleUserChoice(event, userChoice);
+                  props.handleSubmit(event);
+                }}
+              >
+                <button onClick={onclick} type="submit" value="bike">
+                  I want to bike
+                </button>
               </form>
             </li>
           </ul>
         </>
       ) : null}
-      
     </>
   );
 };

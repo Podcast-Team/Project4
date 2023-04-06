@@ -15,7 +15,7 @@ const Form = () => {
   const [podcastList, setPodcastList] = useState([]);
 
   const [message, setMessage] = useState("");
-  const [userChoice, setUserChoice] = useState ("")
+  const [userChoice, setUserChoice] = useState("");
 
   // Onchange listener for starting location
   // Onchange listener for destination
@@ -70,21 +70,22 @@ const Form = () => {
   };
   const onSubmitPodSearch = (e) => {
     e.preventDefault();
-    let minLength 
-    let maxLength 
-    if (userChoice === 'walk') {
-      minLength = totalWalkMinutes - 10
-      maxLength = totalWalkMinutes + 10
-    } else if (userChoice === 'bike'){
-      minLength = totalBikeMinutes - 10
-      maxLength = totalBikeMinutes + 10
+    let minLength;
+    let maxLength;
+    if (userChoice === "walk") {
+      minLength = totalWalkMinutes - 10;
+      maxLength = totalWalkMinutes + 10;
+    } else if (userChoice === "bike") {
+      minLength = totalBikeMinutes - 10;
+      maxLength = totalBikeMinutes + 10;
     } else {
-      minLength = 0
-      maxLength = 1000
+      minLength = 0;
+      maxLength = 1000;
     }
     setPodcastList([]);
     if (podcastSearch.trim() === "") {
       setMessage("Please enter a valid search");
+      setUserChoice("");
     } else {
       setMessage("Please wait, results are loading");
       const { Client } = require("podcast-api");
@@ -104,34 +105,42 @@ const Form = () => {
         .then((response) => {
           setMessage("");
           if (response.data.results.length === 0) {
-            setMessage("Sorry, we couldn't find a podcast like that, try again!");
-          }
-          else {
+            setMessage(
+              "Sorry, we couldn't find a podcast like that, try again!"
+            );
+          } else {
             setPodcastList(
               response.data.results.map((list) => {
                 return list;
               })
             );
           }
+
         })
         .catch((error) => {
           setMessage("Sorry, the call didnt work");
+          setUserChoice("");
         });
+
     }
   };
 
   const handleUserChoice = (e, userChoice) => {
-    e.preventDefault ()
-    setUserChoice (userChoice)
-  }
+    e.preventDefault();
+    setUserChoice(userChoice);
+  };
 
-const timeWalk = walkTime
-const [walkHours, walkMinutes, walkSeconds] = timeWalk.split (":").map(Number)
-const totalWalkMinutes = Math.round(walkHours * 60 + walkMinutes + walkSeconds / 60)
+  const timeWalk = walkTime;
+  const [walkHours, walkMinutes, walkSeconds] = timeWalk.split(":").map(Number);
+  const totalWalkMinutes = Math.round(
+    walkHours * 60 + walkMinutes + walkSeconds / 60
+  );
 
-const timeBike = bikeTime 
-const [bikeHours, bikeMinutes, bikeSeconds] = timeBike.split (":").map(Number)
-const totalBikeMinutes = Math.round(bikeHours * 60 + bikeMinutes + bikeSeconds / 60)
+  const timeBike = bikeTime;
+  const [bikeHours, bikeMinutes, bikeSeconds] = timeBike.split(":").map(Number);
+  const totalBikeMinutes = Math.round(
+    bikeHours * 60 + bikeMinutes + bikeSeconds / 60
+  );
 
   return (
     <>
@@ -173,10 +182,21 @@ const totalBikeMinutes = Math.round(bikeHours * 60 + bikeMinutes + bikeSeconds /
         <button type="submit">Submit</button>
       </form>
 
-
-
-      <BikeOrWalk walkTime={walkTime} bikeTime={bikeTime} location={location} destination={destination} handleUserChoice= {handleUserChoice} handleSubmit={onSubmitPodSearch}/>
-      <PodcastInfo podcast={podcastList} message={message} bikeTime={bikeTime} walkTime={walkTime} userChoice={userChoice} />
+      <BikeOrWalk
+        walkTime={walkTime}
+        bikeTime={bikeTime}
+        location={location}
+        destination={destination}
+        handleUserChoice={handleUserChoice}
+        handleSubmit={onSubmitPodSearch}
+      />
+      <PodcastInfo
+        podcast={podcastList}
+        message={message}
+        bikeTime={bikeTime}
+        walkTime={walkTime}
+        userChoice={userChoice}
+      />
     </>
 
     // Podcast form
