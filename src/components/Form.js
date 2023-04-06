@@ -68,9 +68,20 @@ const Form = () => {
       setBikeTime(resp.data.route.formattedTime);
     });
   };
-
   const onSubmitPodSearch = (e) => {
     e.preventDefault();
+    let minLength 
+    let maxLength 
+    if (userChoice === 'walk') {
+      minLength = totalWalkMinutes - 10
+      maxLength = totalWalkMinutes + 10
+    } else if (userChoice === 'bike'){
+      minLength = totalBikeMinutes - 10
+      maxLength = totalBikeMinutes + 10
+    } else {
+      minLength = 0
+      maxLength = 1000
+    }
     setPodcastList([]);
     if (podcastSearch.trim() === "") {
       setMessage("Please enter a valid search");
@@ -83,7 +94,8 @@ const Form = () => {
           q: podcastSearch,
           sort_by_date: 0,
           offset: 0,
-          len_min: 10,
+          len_min: minLength,
+          len_max: maxLength,
           type: "podcast",
           only_in: "title,description",
           language: "English",
@@ -111,10 +123,15 @@ const Form = () => {
   const handleUserChoice = (e, userChoice) => {
     e.preventDefault ()
     setUserChoice (userChoice)
-    console.log (userChoice)
   }
 
-  
+const timeWalk = walkTime
+const [walkHours, walkMinutes, walkSeconds] = timeWalk.split (":").map(Number)
+const totalWalkMinutes = Math.round(walkHours * 60 + walkMinutes + walkSeconds / 60)
+
+const timeBike = bikeTime 
+const [bikeHours, bikeMinutes, bikeSeconds] = timeBike.split (":").map(Number)
+const totalBikeMinutes = Math.round(bikeHours * 60 + bikeMinutes + bikeSeconds / 60)
 
   return (
     <>
@@ -158,7 +175,7 @@ const Form = () => {
 
 
 
-      <BikeOrWalk walkTime={walkTime} bikeTime={bikeTime} location={location} destination={destination} handleUserChoice= {handleUserChoice} />
+      <BikeOrWalk walkTime={walkTime} bikeTime={bikeTime} location={location} destination={destination} handleUserChoice= {handleUserChoice} handleSubmit={onSubmitPodSearch}/>
       <PodcastInfo podcast={podcastList} message={message} bikeTime={bikeTime} walkTime={walkTime} userChoice={userChoice} />
     </>
 
