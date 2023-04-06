@@ -46,8 +46,8 @@ const Form = () => {
 
   const onSubmitLocation = (e) => {
     e.preventDefault();
-    setWalkTime ("0")
-    setBikeTime ("0")
+    
+    
 
     if (location.trim () === "" || destination.trim () === "") {
       setMessage("Please enter a valid search");
@@ -71,7 +71,7 @@ const Form = () => {
         if (resp.statusText === "OK") {
           setWalkTime(resp.data.route.formattedTime);
         } else {
-        
+          setWalkTime (0)
           setMessage ("Sorry, no results were found")
         }
       })
@@ -93,7 +93,7 @@ const Form = () => {
         if (resp.statusText === "OK") {
           setBikeTime(resp.data.route.formattedTime);
         } else {
-          
+          setBikeTime (0)
           setMessage ("Sorry, no results were found")
         }
       })
