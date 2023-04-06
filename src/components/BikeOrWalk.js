@@ -17,8 +17,15 @@ const BikeOrWalk = (props) => {
 const [userChoice, setUserChoice] = useState("");
 const onclick = (e) => {
     setUserChoice (e.target.value)
-    console.log(e)
 }
+
+const handleUserSubmit = () => {
+  const handleUserChoice = ((event => {
+    props.handleUserChoice(event, userChoice)
+  }))
+    props.handleSubmit()
+}
+
   return (
     <>
       {props.walkTime && props.bikeTime ? (
@@ -36,9 +43,7 @@ const onclick = (e) => {
           <ul>
             <li>
               <p>Walking time: {props.walkTime}</p>
-              <form onSubmit = {(event => {
-                props.handleUserChoice (event, userChoice)
-              })}>
+              <form onSubmit = {handleUserSubmit}>
                 <button onClick = {onclick} type="submit" value="walk">I want to walk</button>
               </form>
               
@@ -47,6 +52,7 @@ const onclick = (e) => {
               <p>Biking time: {props.bikeTime}</p>
               <form onSubmit = {(event => {
                 props.handleUserChoice (event, userChoice)
+                props.handleSubmit(event)
               })}>
                 <button onClick = {onclick} type="submit" value="bike">I want to bike</button>
               </form>
