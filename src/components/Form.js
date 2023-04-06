@@ -46,46 +46,72 @@ const Form = () => {
 
   const onSubmitLocation = (e) => {
     e.preventDefault();
-    axios({
-      url: "https://www.mapquestapi.com/directions/v2/route",
-      method: "GET",
-      dataResponse: "json",
-      params: {
-        key: "GajCx4GDQ4BbxuYSyMwSYdn9B65f9Vnx",
-        from: location,
-        to: destination,
-        routeType: "pedestrian",
-      },
-    }).then((resp) => {
-      setWalkTime(resp.data.route.formattedTime);
-    });
+    
+    
 
-    axios({
-      url: "https://www.mapquestapi.com/directions/v2/route",
-      method: "GET",
-      dataResponse: "json",
-      params: {
-        key: "GajCx4GDQ4BbxuYSyMwSYdn9B65f9Vnx",
-        from: location,
-        to: destination,
-        routeType: "bicycle",
-      },
-    }).then((resp) => {
-      setBikeTime(resp.data.route.formattedTime);
-    });
+    if (location.trim () === "" || destination.trim () === "") {
+      setMessage("Please enter a valid search");
+      // setUserChoice("");
+    } else {
+      setMessage("Please wait, calculating route");
+      
+
+      axios({
+        url: "https://www.mapquestapi.com/directions/v2/route",
+        method: "GET",
+        dataResponse: "json",
+        params: {
+          key: "GajCx4GDQ4BbxuYSyMwSYdn9B65f9Vnx",
+          from: location,
+          to: destination,
+          routeType: "pedestrian",
+        },
+      
+      }).then((resp) => {
+        if (resp.statusText === "OK") {
+          setWalkTime(resp.data.route.formattedTime);
+        } else {
+          setWalkTime (0)
+          setMessage ("Sorry, no results were found")
+        }
+      })
+      
+  
+  
+
+      axios({
+        url: "https://www.mapquestapi.com/directions/v2/route",
+        method: "GET",
+        dataResponse: "json",
+        params: {
+          key: "GajCx4GDQ4BbxuYSyMwSYdn9B65f9Vnx",
+          from: location,
+          to: destination,
+          routeType: "bicycle",
+        },
+      }).then((resp) => {
+        if (resp.statusText === "OK") {
+          setBikeTime(resp.data.route.formattedTime);
+        } else {
+          setBikeTime (0)
+          setMessage ("Sorry, no results were found")
+        }
+      })
+    }
   };
 
-  const timeWalk = walkTime;
-  const [walkHours, walkMinutes, walkSeconds] = timeWalk.split(":").map(Number);
+  // const timeWalk = walkTime;
+  const [walkHours, walkMinutes, walkSeconds] = walkTime.split(":").map(Number);
   const totalWalkMinutes = Math.round(
     walkHours * 60 + walkMinutes + walkSeconds / 60
   );
 
-  const timeBike = bikeTime;
-  const [bikeHours, bikeMinutes, bikeSeconds] = timeBike.split(":").map(Number);
+  // const timeBike = bikeTime;
+  const [bikeHours, bikeMinutes, bikeSeconds] = bikeTime.split(":").map(Number);
   const totalBikeMinutes = Math.round(
     bikeHours * 60 + bikeMinutes + bikeSeconds / 60
   );
+
 
   const onSubmitPodSearch = (e) => {
     e.preventDefault();
