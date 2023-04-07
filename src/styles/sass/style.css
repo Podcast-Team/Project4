@@ -265,6 +265,11 @@ main {
   background-color: #001E31;
 }
 
+body {
+  position: relative;
+  font-family: "Lato", sans-serif;
+}
+
 h1 {
   font-family: "Nova Flat", cursive;
   text-shadow: 4px 4px 2px rgb(225, 92, 166);
@@ -298,14 +303,14 @@ button {
   box-sizing: border-box;
 }
 button:focus-visible {
-  border-color: #FFF;
+  border-color: #fff;
 }
 button:active {
-  color: #FFF;
+  color: #fff;
 }
 
 footer {
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100%;
   text-align: center;
@@ -323,6 +328,66 @@ footer a {
   }
 }
 
+img {
+  display: block;
+  min-width: 100%;
+  height: auto;
+}
+
+ul {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+ul li {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  border-bottom: 1px solid #C2EDD8;
+  padding-bottom: 2rem;
+}
+ul p {
+  max-width: 20rem;
+}
+ul a {
+  color: #C2EDD8;
+}
+
+.podInfo {
+  display: flex;
+  flex-direction: column;
+}
+.podInfo .podDesc {
+  min-height: 100%;
+  overflow-y: scroll;
+  border: 2px solid #C2EDD8;
+  padding: 0.75rem;
+  margin: 0;
+  display: block;
+  max-height: 15rem;
+}
+
+h2,
+h3 {
+  font-family: "Nova Flat", cursive;
+  text-align: center;
+}
+
+h3 a:hover, h3 a:focus-visible {
+  color: #D3CFE6;
+  outline: none;
+}
+
+@media (min-width: 700px) {
+  .podInfo {
+    flex-direction: row;
+  }
+}
 body {
   background-color: #001E31;
   color: #C2EDD8;
