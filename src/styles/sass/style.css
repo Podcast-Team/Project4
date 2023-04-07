@@ -270,11 +270,24 @@ body {
   font-family: "Lato", sans-serif;
 }
 
+header {
+  height: 10vh;
+}
+
 h1 {
   font-family: "Nova Flat", cursive;
   text-shadow: 4px 4px 2px rgb(225, 92, 166);
   -webkit-text-stroke: 1px black;
   text-transform: uppercase;
+  margin: 0;
+  padding-top: 1rem;
+}
+
+main {
+  min-height: 80vh;
+}
+main .wrapper {
+  padding-top: 1rem;
 }
 
 form {
@@ -287,7 +300,25 @@ form button {
   margin: 0.5rem 0;
   padding: 0.4rem;
 }
+form button {
+  display: block;
+  margin: 0.5rem auto;
+}
 
+@media (min-width: 480px) {
+  .travelForm {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .travelForm input {
+    width: calc(50% - 10px);
+  }
+  .podcastForm input {
+    width: calc(50% - 10px);
+    margin: auto;
+  }
+}
 input,
 input::placeholder {
   font-size: 0.8rem;
@@ -310,10 +341,14 @@ button:active {
 }
 
 footer {
+  height: 10vh;
   position: relative;
   bottom: 0;
   width: 100%;
   text-align: center;
+}
+footer p {
+  margin: 0;
 }
 footer a {
   color: #C2EDD8;
@@ -385,6 +420,26 @@ h3 a:hover, h3 a:focus-visible {
 
 @media (min-width: 700px) {
   .podInfo {
+    flex-direction: row;
+  }
+}
+.travel p {
+  text-align: center;
+}
+.travel li {
+  padding-bottom: 0;
+  padding-right: 1rem;
+}
+
+span {
+  font-weight: 700;
+  color: #D3CFE6;
+  display: block;
+  padding: 0.5rem 0;
+}
+
+@media (min-width: 480px) {
+  .travel ul {
     flex-direction: row;
   }
 }

@@ -1,0 +1,25 @@
+@use "./variables" as *;
+
+.travel {
+    p {
+        text-align: center;
+    }
+    li {
+        padding-bottom: 0;
+        padding-right: 1rem;
+    }
+}
+
+
+span {
+    font-weight: 700;
+    color: $secondary;
+    display: block;
+    padding: .5rem 0;
+}
+
+@media (min-width: 480px) {
+.travel ul {
+    flex-direction: row;
+}
+}

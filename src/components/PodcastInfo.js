@@ -15,7 +15,7 @@ const PodcastInfo = (props) => {
     // A "loading" message
     // An error message if necessary.
     <>
-      <ul>
+      <ul className="podcastList">
         <h2>{props.message}</h2>
         {props.podcast.map((podcastList) => {
           const lengthInMin = Math.round(podcastList.audio_length_sec / 60);
