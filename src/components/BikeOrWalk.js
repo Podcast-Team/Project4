@@ -21,7 +21,7 @@ const BikeOrWalk = (props) => {
 
   return (
     <>
-      {props.walkTime && props.bikeTime ? (
+      {props.walkTime && props.bikeTime && props.walkTime !== "0" && props.bikeTime !== "0" ? (
         <>
           <h2>Would you like to walk or ride a bike?</h2>
           <p>

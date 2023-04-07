@@ -46,8 +46,6 @@ const Form = () => {
 
   const onSubmitLocation = (e) => {
     e.preventDefault();
-    
-    
 
     if (location.trim () === "" || destination.trim () === "") {
       setMessage("Please enter a valid search");
@@ -65,19 +63,18 @@ const Form = () => {
           from: location,
           to: destination,
           routeType: "pedestrian",
-        },
-      
+        },   
       }).then((resp) => {
-        if (resp.statusText === "OK") {
+        console.log(resp)
+        if (resp.data.info.statuscode === 0) {
           setWalkTime(resp.data.route.formattedTime);
         } else {
-          setWalkTime (0)
+          setWalkTime ("0")
           setMessage ("Sorry, no results were found")
         }
+      }).catch(() => {
+        setMessage("Sorry, something went wrong. Try again shortly!")
       })
-      
-  
-  
 
       axios({
         url: "https://www.mapquestapi.com/directions/v2/route",
@@ -90,12 +87,15 @@ const Form = () => {
           routeType: "bicycle",
         },
       }).then((resp) => {
-        if (resp.statusText === "OK") {
+        if (resp.data.info.statuscode === 0) {
           setBikeTime(resp.data.route.formattedTime);
+          setMessage("");
         } else {
-          setBikeTime (0)
+          setBikeTime ("0")
           setMessage ("Sorry, no results were found")
         }
+      }).catch(() => {
+        setMessage("Sorry, something went wrong. Try again shortly!")
       })
     }
   };
@@ -152,7 +152,7 @@ const Form = () => {
           setMessage("");
           if (response.data.results.length === 0) {
             setMessage(
-              "Sorry, we couldn't find a podcast like that, try again!"
+              "Sorry, we couldn't find a podcast like that, try a different search!"
             );
           } else {
             setPodcastList(
@@ -163,7 +163,7 @@ const Form = () => {
           }
         })
         .catch((error) => {
-          setMessage("Sorry, the call didnt work");
+          setMessage("Sorry, we're having trouble finding any podcasts. Try again shortly!");
           // setUserChoice("");
         });
     }
