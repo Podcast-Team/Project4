@@ -146,7 +146,7 @@ const Form = () => {
           type: "podcast",
           only_in: "title,description",
           language: "English",
-          page_size: 5,
+          page_size: 6,
         })
         .then((response) => {
           setMessage("");
@@ -155,8 +155,10 @@ const Form = () => {
               "Sorry, we couldn't find a podcast like that, try a different search!"
             );
           } else {
+            console.log(response.data.results);
             setPodcastList(
               response.data.results.map((list) => {
+                setMessage("Here are some podcasts you can listen to on your trip!");
                 return list;
               })
             );

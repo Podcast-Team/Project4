@@ -1,6 +1,7 @@
 @use "./partials/setup";
 @use "./partials/variables" as *;
-@use "./partials/content";
+@use "./partials/main";
+@use "./partials/podcast";
 
 body {
     background-color: $background;
