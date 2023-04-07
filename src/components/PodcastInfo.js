@@ -22,14 +22,21 @@ const PodcastInfo = (props) => {
 
           return (
             <li key={podcastList.id}>
-              <div className="imgContainer">
-                <img src={podcastList.image} alt={`Podcast logo for: ${podcastList.title_original}`} />
-              </div>
               <h3>
-                <a href={podcastList.website} target="_blank">{podcastList.title_original}</a>
+                <a href={podcastList.website} target="_blank">
+                  {podcastList.title_original}
+                </a> {" "}
+                - duration: {lengthInMin} min
               </h3>
-              <p className="podDesc">{podcastList.description_original}</p>
-              <p>Duration: {lengthInMin} min</p>
+              <div className="podInfo">
+                <div className="imgContainer">
+                  <img
+                    src={podcastList.image}
+                    alt={`Podcast logo for: ${podcastList.title_original}`}
+                  />
+                </div>
+                <p className="podDesc">{podcastList.description_original}</p>
+              </div>
             </li>
           );
         })}

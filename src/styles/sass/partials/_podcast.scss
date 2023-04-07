@@ -1,5 +1,11 @@
 @use "./variables" as *;
 
+img {
+    display: block;
+    min-width: 100%;
+    height: auto;
+}
+
 ul {
   padding: 0;
   display: flex;
@@ -14,10 +20,7 @@ ul {
     justify-content: space-between;
     text-align: center;
     border-bottom: 1px solid $primary;
-    margin-bottom: 2rem;
-    img {
-      max-width: 11rem;
-    }
+    padding-bottom: 2rem;
   }
   p {
     max-width: 20rem;
@@ -25,12 +28,20 @@ ul {
   a {
     color: $primary;
   }
-  .podDesc {
-    height: 8rem;
-    overflow-y: scroll;
-    border: 2px solid $primary;
-    padding: 0.75rem;
-  }
+}
+
+.podInfo {
+    display: flex;
+    flex-direction: column;
+    .podDesc {
+        min-height: 100%;
+        overflow-y: scroll;
+        border: 2px solid $primary;
+        padding: 0.75rem;
+        margin: 0;
+        display: block;
+        max-height: 15rem;
+      }
 }
 
 h2,
@@ -39,15 +50,13 @@ h3 {
   text-align: center;
 }
 
-@media (min-width: 850px) {
-    ul {
+h3 a:hover, h3 a:focus-visible {
+color: $secondary;
+outline: none;
+}
+
+@media (min-width: 700px) {
+    .podInfo {
         flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
-    li {
-        min-width: 300px;
-        width: calc((100% / 2) - 20px);
-        min-height: 30rem;
     }
 }
