@@ -17,11 +17,12 @@ const BikeOrWalk = (props) => {
   //   setUserChoice(e.target.firstChild.value)
   // };
 
-
-
   return (
-    <>
-      {props.walkTime && props.bikeTime && props.walkTime !== "0" && props.bikeTime !== "0" ? (
+    <div className="travel">
+      {props.walkTime &&
+      props.bikeTime &&
+      props.walkTime !== "0" &&
+      props.bikeTime !== "0" ? (
         <>
           <h2>Would you like to walk or ride a bike?</h2>
           <p>
@@ -32,7 +33,10 @@ const BikeOrWalk = (props) => {
           </p>
           <p>
             {" "}
-            You are traveling from {props.location} to {props.destination}.
+            You are traveling from
+           <span>{props.location}</span>
+            to
+            <span>{props.destination}.</span>
             Below is the estimated walking and bike time to your destination!
           </p>
 
@@ -41,8 +45,8 @@ const BikeOrWalk = (props) => {
               <p>Walking time: {props.walkTime}</p>
               <form
                 onSubmit={(event) => {
-                 props.handleUserChoice(event, event.target.firstChild.value)
-                 props.handleSubmit(event, event.target.firstChild.value)
+                  props.handleUserChoice(event, event.target.firstChild.value);
+                  props.handleSubmit(event, event.target.firstChild.value);
                 }}
               >
                 <button type="submit" value="walk">
@@ -66,7 +70,7 @@ const BikeOrWalk = (props) => {
           </ul>
         </>
       ) : null}
-    </>
+    </div>
   );
 };
 

@@ -173,7 +173,7 @@ const Form = () => {
 
   return (
     <>
-      <form action="submit" onSubmit={onSubmitLocation}>
+      <form action="submit" onSubmit={onSubmitLocation} className="travelForm" >
         <label htmlFor="location" className="sr-only">
           Where are you starting from?
         </label>
@@ -197,7 +197,7 @@ const Form = () => {
         <button type="submit">Submit</button>
       </form>
 
-      <form action="submit" onSubmit={onSubmitPodSearch}>
+      <form action="submit" onSubmit={onSubmitPodSearch} className="podcastForm">
         <label htmlFor="podSearch" className="sr-only">
           What podcast do you want to listen to?
         </label>

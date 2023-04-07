@@ -2,6 +2,7 @@
 @use "./partials/variables" as *;
 @use "./partials/main";
 @use "./partials/podcast";
+@use "./partials/travel";
 
 body {
     background-color: $background;
