@@ -25,19 +25,17 @@ const Form = () => {
 
   // Function that handles when podcast form is submitted
   // Podcast axios call that triggers when podcast form is submitted
-
+  let newLocation
   const handleLocationChange = (e, location) => {
-
-    const newLocation = location.split(",").slice(0,2).join(',');
+    newLocation = location.split(",").slice(0,2).join(',');
     console.log(newLocation)
-    setLocation(newLocation);
-
+    setLocation(newLocation)
   };
-
+  let newDestination
   const handleDestinationChange = (e, destination) => {
-    const newDestination = destination.split(",").slice(0,2).join(',');
-    setDestination(newDestination);
-
+   newDestination = destination.split(",").slice(0,2).join(',');
+   console.log(newDestination)
+   setDestination(newDestination)
   };
 
   const handlePodcastSearchChange = (e) => {
@@ -48,15 +46,14 @@ const Form = () => {
   const handleUserChoice = (e, target) => {
     e.preventDefault();
     userChoice = target;
-    console.log(userChoice)
   };
 
   const onSubmitLocation = (e) => {
     e.preventDefault();
 
-    if (location.trim () === "" || destination.trim () === "") {
+    if (newLocation.trim() === "" || newDestination.trim() === "") {
       setMessage("Please enter a valid search");
-      // setUserChoice("");
+      
     } else {
       setMessage("Please wait, calculating route");
       
@@ -67,8 +64,8 @@ const Form = () => {
         dataResponse: "json",
         params: {
           key: "GajCx4GDQ4BbxuYSyMwSYdn9B65f9Vnx",
-          from: location,
-          to: destination,
+          from: newLocation,
+          to: newDestination,
           routeType: "pedestrian",
         },   
       }).then((resp) => {
@@ -89,8 +86,8 @@ const Form = () => {
         dataResponse: "json",
         params: {
           key: "GajCx4GDQ4BbxuYSyMwSYdn9B65f9Vnx",
-          from: location,
-          to: destination,
+          from: newLocation,
+          to: newDestination,
           routeType: "bicycle",
         },
       }).then((resp) => {

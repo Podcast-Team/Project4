@@ -1,7 +1,15 @@
-import React, { useState } from "react";
-import { Loader } from "@googlemaps/js-api-loader";
+import React, { useState, useRef, useEffect } from "react";
 
 const TravelFrom = (props) => {
+  const travelFromRef = useRef();
+  const travelToRef = useRef();
+  const inputLocation = useRef();
+  const inputDestination = useRef();
+  const options = {
+    types: ["address"],
+    componentRestrictions: { country: "ca" },
+  };
+
   const [location, setLocation] = useState("");
   const [destination, setDestination] = useState("");
 
@@ -13,59 +21,52 @@ const TravelFrom = (props) => {
     setDestination(e.target.value);
   };
 
-  const handleScriptLoad = () => {
-    const options = {
-      types: ["address"],
-    };
-
-    const locationInput = document.getElementById("location");
-    const destinationInput = document.getElementById("destination");
-
-    const autocompleteLocation = new window.google.maps.places.Autocomplete(
-        locationInput,
+  useEffect(() => {
+    travelFromRef.current = new window.google.maps.places.Autocomplete(
+      inputLocation.current,
       options
     );
-
-    const autocompleteDestination = new window.google.maps.places.Autocomplete(
-        destinationInput,
+    travelFromRef.current.addListener("place_changed", async function () {
+      const place = await travelFromRef.current.getPlace();
+      setLocation(place.formatted_address);
+    });
+    travelToRef.current = new window.google.maps.places.Autocomplete(
+      inputDestination.current,
       options
     );
-
-    autocompleteLocation.addListener("place_changed", () => {
-      const place = autocompleteLocation.getPlace();
-      if (place && place.formatted_address) {
-        setLocation(place.formatted_address);
-      }
+    travelToRef.current.addListener("place_changed", async function () {
+      const placeTo = await travelToRef.current.getPlace();
+      setDestination(placeTo.formatted_address);
     });
-
-    autocompleteDestination.addListener("place_changed", () => {
-      const place = autocompleteDestination.getPlace();
-      if (place && place.formatted_address) {
-        setDestination(place.formatted_address);
-      }
-    });
-  };
-
-  const loader = new Loader({
-    apiKey: "AIzaSyAIMEmrg7lPuZIxL31lBF0kWwwAmw8XsO4",
-    version: "weekly",
-  });
-
-  loader.load().then(() => {
-    handleScriptLoad();
-  });
+  }, []);
 
   return (
-    <form onSubmit={(event)=>{
-        props.setLocation(event, location)
-        props.setDestination(event, destination)
-        props.submit(event)
-    }}>
+    <form
+      onSubmit={(event) => {
+        props.setLocation(event, location);
+        props.setDestination(event, destination);
+        props.submit(event);
+      }}
+    >
       <label htmlFor="location">From:</label>
-      <input placeholder="Where are you starting from?" id="location" type="text" value={location} onChange={handleLocationChange} />
+      <input
+        ref={inputLocation}
+        placeholder="Where are you starting from?"
+        id="location"
+        type="text"
+        value={location}
+        onChange={handleLocationChange}
+      />
 
       <label htmlFor="destination">To:</label>
-      <input placeholder="Where are you headed?"id="destination" type="text" value={destination} onChange={handleDestinationChange} />
+      <input
+        ref={inputDestination}
+        placeholder="Where are you headed?"
+        id="destination"
+        type="text"
+        value={destination}
+        onChange={handleDestinationChange}
+      />
 
       <button type="submit">Submit</button>
     </form>
