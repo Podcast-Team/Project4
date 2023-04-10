@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import BikeOrWalk from "./BikeOrWalk.js";
 import PodcastInfo from "./PodcastInfo.js";
-import TravelFrom from "./TravelForm.js";
+import TravelForm from "./TravelForm.js";
 
 // This app will take the user's location and destination input and call the MapQuest and Podcast APIs 
 // The MapQuest API, when called will give us the estimated time it takes to get to the user's destination from their location via walking and biking (this will be set via useState)
@@ -251,7 +251,7 @@ const Form = () => {
 //Passing data through forms, etc 
   return (
     <>
-      <TravelFrom
+      <TravelForm
         submit={onSubmitLocation}
         setLocation={handleLocationChange}
         setDestination={handleDestinationChange}

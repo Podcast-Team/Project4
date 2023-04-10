@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 
-const TravelFrom = (props) => {
+const TravelForm = (props) => {
   const travelFromRef = useRef();
   const travelToRef = useRef();
   const inputLocation = useRef();
@@ -76,4 +76,4 @@ const TravelFrom = (props) => {
   );
 };
 
-export default TravelFrom;
+export default TravelForm;
