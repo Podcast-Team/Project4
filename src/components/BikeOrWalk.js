@@ -1,21 +1,9 @@
-import { useState } from "react";
+//Component for when the user decides on their method of travel 
+//BikeOrWalk will via props, hold the travel time data that was received first in the Form component via the MapQuest API call 
+// It will then display the travel time, userChoice, and Map (line 31 to be specific)
 
 const BikeOrWalk = (props) => {
-  // Discuss with client:
-  // We're not sure what the travel time will be until we suggest biking or walking.
-  // Are we prioritizing travel length or podcast length?
-  // We suggest instead displaying both walking time and biking time
-  // Then user can choose walking or biking, and then have a podcast recommended to them based on travel time
 
-  // Conditional that factors in the trip distance
-  // If over a certain distance, suggest bike
-  // Render message that recommends not using headphone while biking
-  // Otherwise, suggest walk
-
-  // const [userChoice, setUserChoice] = useState("");
-  // const onSubmit = (e) => {
-  //   setUserChoice(e.target.firstChild.value)
-  // };
 
   return (
     <div className="travel">
@@ -41,7 +29,9 @@ const BikeOrWalk = (props) => {
             <div className="mapContainer">
               <img
                 src={props.mapRoute}
-                alt="A map of the route from {} to {}"
+                alt={`A map of the route from ${props.location} to ${props.destination}`}
+                //Whenever we want to type JS into react we must use ${} and ` within {}
+                //How to properly use template literals 
               />
             </div>
           </p>
@@ -54,11 +44,14 @@ const BikeOrWalk = (props) => {
                   props.handleUserChoice(event, event.target.firstChild.value);
                   props.handleSubmit(event, event.target.firstChild.value);
                 }}
+                //OnSubmit passes the value back to form -> propping data back up to form 
               >
                 <button type="submit" value="walk">
                   I want to walk
                 </button>
+                {/* Button just to actually submit the preference to Walk and the walk time data back up to Form component  */}
               </form>
+              
             </li>
             <li>
               <p>Biking time: {props.bikeTime}</p>
@@ -72,10 +65,12 @@ const BikeOrWalk = (props) => {
                   I want to bike
                 </button>
               </form>
+              {/* refer to line 47 and 52 for the process */}
             </li>
           </ul>
         </>
       ) : null}
+      {/* Null is a conditional | If the walktime and biketime is non-existent then we display nothing/null*/}
     </div>
   );
 };

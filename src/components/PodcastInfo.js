@@ -1,19 +1,10 @@
-import { useState } from "react";
+//Podcast COmponent 
+// Displays the results for the podcast search
+// Display API call Podcast data 
+
 
 const PodcastInfo = (props) => {
-  // const [podcast, setPodcast] = useState('');
-  // useState for selected podcast - string
-
-  // Onclick event that selects the clicked button's podcast
-  // Pass selected podcast up to form as an argument
-
-  //Have to redefine how the conditions in how the podcast will be displayed
-  //Maybe something like: if the length of the podcast is +- x minutes of the destination time THEN display instead of if destination time ==== length of podcast
-
   return (
-    // Heading that displays either:
-    // A "loading" message
-    // An error message if necessary.
     <>
       <ul className="podcastList">
         <h2>{props.message}</h2>
