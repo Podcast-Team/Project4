@@ -41,31 +41,35 @@ const TravelFrom = (props) => {
 
   return (
     <form
+      className="travelForm"
       onSubmit={(event) => {
         props.setLocation(event, location);
         props.setDestination(event, destination);
         props.submit(event);
       }}
     >
-      <label htmlFor="location">From:</label>
-      <input
-        ref={inputLocation}
-        placeholder="Where are you starting from?"
-        id="location"
-        type="text"
-        value={location}
-        onChange={handleLocationChange}
-      />
-
-      <label htmlFor="destination">To:</label>
-      <input
-        ref={inputDestination}
-        placeholder="Where are you headed?"
-        id="destination"
-        type="text"
-        value={destination}
-        onChange={handleDestinationChange}
-      />
+      <div className="location">
+        <label htmlFor="location">From:</label>
+        <input
+          ref={inputLocation}
+          placeholder="Where are you starting from?"
+          id="location"
+          type="text"
+          value={location}
+          onChange={handleLocationChange}
+        />
+      </div>
+      <div className="destination">
+        <label htmlFor="destination">To:</label>
+        <input
+          ref={inputDestination}
+          placeholder="Where are you headed?"
+          id="destination"
+          type="text"
+          value={destination}
+          onChange={handleDestinationChange}
+        />
+      </div>
 
       <button type="submit">Submit</button>
     </form>

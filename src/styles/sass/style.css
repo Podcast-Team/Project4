@@ -293,7 +293,11 @@ main .wrapper {
 form {
   display: flex;
   flex-direction: column;
-  padding: 1rem 0;
+  padding: 2rem 0;
+}
+form div {
+  display: flex;
+  flex-direction: column;
 }
 form input,
 form button {
@@ -305,13 +309,18 @@ form button {
   margin: 0.5rem auto;
 }
 
+.podcastForm label {
+  text-align: center;
+  padding-bottom: 0.5rem;
+}
+
 @media (min-width: 480px) {
   .travelForm {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
   }
-  .travelForm input {
+  .travelForm div {
     width: calc(50% - 10px);
   }
   .podcastForm input {

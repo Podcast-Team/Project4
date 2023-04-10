@@ -216,7 +216,7 @@ const Form = () => {
       </form> */}
 
       <form action="submit" onSubmit={onSubmitPodSearch} className="podcastForm">
-        <label htmlFor="podSearch" className="sr-only">
+        <label htmlFor="podSearch">
           What podcast do you want to listen to?
         </label>
         <input
