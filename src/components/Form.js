@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import BikeOrWalk from "./BikeOrWalk.js";
 import PodcastInfo from "./PodcastInfo.js";
+import TravelFrom from "./TravelForm.js";
 
 const Form = () => {
   // useEffect(() => {}, []);
@@ -24,13 +25,17 @@ const Form = () => {
 
   // Function that handles when podcast form is submitted
   // Podcast axios call that triggers when podcast form is submitted
-
-  const handleLocationChange = (e) => {
-    setLocation(e.target.value);
+  let newLocation
+  const handleLocationChange = (e, location) => {
+    newLocation = location.split(",").slice(0,2).join(',');
+    console.log(newLocation)
+    setLocation(newLocation)
   };
-
-  const handleDestinationChange = (e) => {
-    setDestination(e.target.value);
+  let newDestination
+  const handleDestinationChange = (e, destination) => {
+   newDestination = destination.split(",").slice(0,2).join(',');
+   console.log(newDestination)
+   setDestination(newDestination)
   };
 
   const handlePodcastSearchChange = (e) => {
@@ -41,15 +46,14 @@ const Form = () => {
   const handleUserChoice = (e, target) => {
     e.preventDefault();
     userChoice = target;
-    console.log(userChoice)
   };
 
   const onSubmitLocation = (e) => {
     e.preventDefault();
 
-    if (location.trim () === "" || destination.trim () === "") {
+    if (newLocation.trim() === "" || newDestination.trim() === "") {
       setMessage("Please enter a valid search");
-      // setUserChoice("");
+      
     } else {
       setMessage("Please wait, calculating route");
       
@@ -60,8 +64,8 @@ const Form = () => {
         dataResponse: "json",
         params: {
           key: "GajCx4GDQ4BbxuYSyMwSYdn9B65f9Vnx",
-          from: location,
-          to: destination,
+          from: newLocation,
+          to: newDestination,
           routeType: "pedestrian",
         },   
       }).then((resp) => {
@@ -82,8 +86,8 @@ const Form = () => {
         dataResponse: "json",
         params: {
           key: "GajCx4GDQ4BbxuYSyMwSYdn9B65f9Vnx",
-          from: location,
-          to: destination,
+          from: newLocation,
+          to: newDestination,
           routeType: "bicycle",
         },
       }).then((resp) => {
@@ -173,7 +177,8 @@ const Form = () => {
 
   return (
     <>
-      <form action="submit" onSubmit={onSubmitLocation} className="travelForm" >
+    <TravelFrom submit={onSubmitLocation} setLocation={handleLocationChange} setDestination={handleDestinationChange}    />
+      {/* <form action="submit" onSubmit={onSubmitLocation} className="travelForm" >
         <label htmlFor="location" className="sr-only">
           Where are you starting from?
         </label>
@@ -195,7 +200,7 @@ const Form = () => {
           placeholder="Where are you headed?"
         />
         <button type="submit">Submit</button>
-      </form>
+      </form> */}
 
       <form action="submit" onSubmit={onSubmitPodSearch} className="podcastForm">
         <label htmlFor="podSearch" className="sr-only">
