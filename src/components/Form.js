@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import BikeOrWalk from "./BikeOrWalk.js";
 import PodcastInfo from "./PodcastInfo.js";
+import TravelFrom from "./TravelForm.js";
 
 const Form = () => {
   // useEffect(() => {}, []);
@@ -25,12 +26,18 @@ const Form = () => {
   // Function that handles when podcast form is submitted
   // Podcast axios call that triggers when podcast form is submitted
 
-  const handleLocationChange = (e) => {
-    setLocation(e.target.value);
+  const handleLocationChange = (e, location) => {
+
+    const newLocation = location.split(",").slice(0,2).join(',');
+    console.log(newLocation)
+    setLocation(newLocation);
+
   };
 
-  const handleDestinationChange = (e) => {
-    setDestination(e.target.value);
+  const handleDestinationChange = (e, destination) => {
+    const newDestination = destination.split(",").slice(0,2).join(',');
+    setDestination(newDestination);
+
   };
 
   const handlePodcastSearchChange = (e) => {
@@ -173,7 +180,8 @@ const Form = () => {
 
   return (
     <>
-      <form action="submit" onSubmit={onSubmitLocation} className="travelForm" >
+    <TravelFrom submit={onSubmitLocation} setLocation={handleLocationChange} setDestination={handleDestinationChange}    />
+      {/* <form action="submit" onSubmit={onSubmitLocation} className="travelForm" >
         <label htmlFor="location" className="sr-only">
           Where are you starting from?
         </label>
@@ -195,7 +203,7 @@ const Form = () => {
           placeholder="Where are you headed?"
         />
         <button type="submit">Submit</button>
-      </form>
+      </form> */}
 
       <form action="submit" onSubmit={onSubmitPodSearch} className="podcastForm">
         <label htmlFor="podSearch" className="sr-only">

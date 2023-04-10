@@ -447,3 +447,17 @@ body {
   background-color: #001E31;
   color: #C2EDD8;
 }
+
+.pac-item{
+  display: flex;
+  align-items: center;
+}
+.pac-item-query{
+  display: flex;
+  align-items: center;
+  
+}
+.pac-matched{
+  padding-right: 5px;
+}
+span {color: black;}
