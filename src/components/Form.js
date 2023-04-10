@@ -109,8 +109,8 @@ const Form = () => {
         dataResponse: "json",
         params: {
           key: "GajCx4GDQ4BbxuYSyMwSYdn9B65f9Vnx",
-          start: location,
-          end: destination,
+          start: newLocation,
+          end: newDestination,
         },
       }).then((resp)=>{
         setMapRoute(resp.request.responseURL)

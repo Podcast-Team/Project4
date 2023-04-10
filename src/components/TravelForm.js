@@ -6,7 +6,6 @@ const TravelFrom = (props) => {
   const inputLocation = useRef();
   const inputDestination = useRef();
   const options = {
-    types: ["address"],
     componentRestrictions: { country: "ca" },
   };
 

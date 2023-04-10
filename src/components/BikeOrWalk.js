@@ -34,11 +34,16 @@ const BikeOrWalk = (props) => {
           <p>
             {" "}
             You are traveling from
-           <span>{props.location}</span>
+            <span>{props.location}</span>
             to
             <span>{props.destination}.</span>
-            <img src={props.mapRoute} alt="" />
             Below is the estimated walking and bike time to your destination!
+            <div className="mapContainer">
+              <img
+                src={props.mapRoute}
+                alt="A map of the route from {} to {}"
+              />
+            </div>
           </p>
 
           <ul>

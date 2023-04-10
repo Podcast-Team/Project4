@@ -365,7 +365,7 @@ footer a {
 
 img {
   display: block;
-  min-width: 100%;
+  width: 100%;
   height: auto;
 }
 
@@ -438,6 +438,34 @@ span {
   padding: 0.5rem 0;
 }
 
+.pac-item {
+  display: flex;
+  align-items: center;
+}
+.pac-item span {
+  color: #001E31;
+  display: flex;
+  align-items: center;
+}
+.pac-item span:last-of-type .pac-matched {
+  padding-right: 0;
+  padding-left: 4px;
+}
+
+.pac-item-query {
+  display: flex;
+  align-items: center;
+}
+.pac-item-query .pac-matched:first-of-type {
+  padding-right: 3px;
+}
+
+.mapContainer {
+  margin: auto;
+  padding-top: 1rem;
+  max-width: 28rem;
+}
+
 @media (min-width: 480px) {
   .travel ul {
     flex-direction: row;
@@ -447,17 +475,3 @@ body {
   background-color: #001E31;
   color: #C2EDD8;
 }
-
-.pac-item{
-  display: flex;
-  align-items: center;
-}
-.pac-item-query{
-  display: flex;
-  align-items: center;
-  
-}
-.pac-matched{
-  padding-right: 5px;
-}
-span {color: black;}
