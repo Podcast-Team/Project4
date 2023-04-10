@@ -37,6 +37,7 @@ const BikeOrWalk = (props) => {
            <span>{props.location}</span>
             to
             <span>{props.destination}.</span>
+            <img src={props.mapRoute} alt="" />
             Below is the estimated walking and bike time to your destination!
           </p>
 

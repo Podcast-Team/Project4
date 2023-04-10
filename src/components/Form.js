@@ -15,6 +15,7 @@ const Form = () => {
   const [bikeTime, setBikeTime] = useState("");
   const [podcastList, setPodcastList] = useState([]);
   const [message, setMessage] = useState("");
+  const [mapRoute, setMapRoute] = useState("");
 
   // Onchange listener for starting location
   // Onchange listener for destination
@@ -102,8 +103,20 @@ const Form = () => {
         setMessage("Sorry, something went wrong. Try again shortly!")
       })
     }
+      axios({
+        url: "https://www.mapquestapi.com/staticmap/v5/map",
+        method: "GET",
+        dataResponse: "json",
+        params: {
+          key: "GajCx4GDQ4BbxuYSyMwSYdn9B65f9Vnx",
+          start: location,
+          end: destination,
+        },
+      }).then((resp)=>{
+        setMapRoute(resp.request.responseURL)
+        console.log(resp.request.responseURL)
+      })
   };
-
   // const timeWalk = walkTime;
   const [walkHours, walkMinutes, walkSeconds] = walkTime.split(":").map(Number);
   const totalWalkMinutes = Math.round(
@@ -223,6 +236,7 @@ const Form = () => {
         destination={destination}
         handleUserChoice={handleUserChoice}
         handleSubmit={onSubmitPodSearch}
+        mapRoute={mapRoute}
       />
       <PodcastInfo
         podcast={podcastList}
