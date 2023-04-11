@@ -23,49 +23,50 @@ const BikeOrWalk = (props) => {
             <span>{props.location}</span>
             to
             <span>{props.destination}.</span>
-            Below is the estimated walking and bike time to your destination!
+            Below is the estimated walking and bike time to your destination, as
+            well as a rough map of your route!
+          </p>
+          <div className="travelDisplay">
+            <ul>
+              <li>
+                <p>Walking time: {props.walkTime}</p>
+                <button
+                  type="button"
+                  value="walk"
+                  onClick={(event) => {
+                    props.handleUserChoice(event, event.target.value);
+                    props.handleSubmit(event, event.target.value);
+                  }}
+                >
+                  I want to walk
+                </button>
+                {/* Button just to actually submit the preference to walk and the walk time data back up to Form component.  */}
+              </li>
+              <li>
+                <p>Biking time: {props.bikeTime}</p>
+                <button
+                  type="button"
+                  value="bike"
+                  onClick={(event) => {
+                    props.handleUserChoice(event, event.target.value);
+                    props.handleSubmit(event, event.target.value);
+                  }}
+                >
+                  I want to bike
+                </button>
+                {/* refer to line 47 and 52 for the process. */}
+              </li>
+            </ul>
+
             <div className="mapContainer">
               <img
                 src={props.mapRoute}
                 alt={`A map of the route from ${props.location} to ${props.destination}`}
-                //How to properly use template literals in React: 
+                //How to properly use template literals in React:
                 //Whenever we want to type JS into React we must use ${} and ` within {}.
               />
             </div>
-          </p>
-
-          <ul>
-            <li>
-              <p>Walking time: {props.walkTime}</p>
-              <form
-                onSubmit={(event) => {
-                  props.handleUserChoice(event, event.target.firstChild.value);
-                  props.handleSubmit(event, event.target.firstChild.value);
-                }}
-                //OnSubmit passes the value back to form -> propping data back up to form. 
-              >
-                <button type="submit" value="walk">
-                  I want to walk
-                </button>
-                {/* Button just to actually submit the preference to walk and the walk time data back up to Form component.  */}
-              </form>
-              
-            </li>
-            <li>
-              <p>Biking time: {props.bikeTime}</p>
-              <form
-                onSubmit={(event) => {
-                  props.handleUserChoice(event, event.target.firstChild.value);
-                  props.handleSubmit(event, event.target.firstChild.value);
-                }}
-              >
-                <button type="submit" value="bike">
-                  I want to bike
-                </button>
-              </form>
-              {/* refer to line 47 and 52 for the process. */}
-            </li>
-          </ul>
+          </div>
         </>
       ) : null}
       {/* Null is a conditional | If the walktime and biketime is non-existent then we display nothing/null.*/}

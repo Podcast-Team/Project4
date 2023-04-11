@@ -72,10 +72,15 @@ const Form = () => {
 
     //The MapQuest API Call going from Location to destination.
     if (newLocation.trim() === "" || newDestination.trim() === "") {
-      setMessage("Please enter a valid search");
+      setMessage("Please enter a valid travel search.");
+      setPodcastList([]);
+      setWalkTime("0");
+      setBikeTime("0");
     } else {
-      setMessage("Please wait, calculating route");
+      setMessage("Please wait, calculating route...");
       //Error handling for location and destination.
+      setPodcastList([]);
+      // This empties the podcast list when the user changes routes.
 
       //*The actual axios API call for walking (via MapQuest):
       axios({
@@ -97,12 +102,14 @@ const Form = () => {
           } else {
             setWalkTime("0");
             //We had to setWalkTime to a string number instead of just number -> wouldn't work otherwise -> we suspect that its because of the split function that we ran earlier -> maybe one day we'll know exactly why.
-            setMessage("Sorry, no results were found");
+            setMessage("Sorry, no route was found.");
           }
         })
         //Error handling for API call.
-        .catch(() => {
-          setMessage("Sorry, something went wrong. Try again shortly!");
+        .catch((error) => {
+          setMessage(
+            "Sorry, something went wrong with our mapping. Try again shortly!"
+          );
         });
 
       //*The actual axios API Call for the bicycling (via MapQuest):
@@ -124,30 +131,34 @@ const Form = () => {
             setMessage("");
           } else {
             setBikeTime("0");
-            setMessage("Sorry, no results were found");
+            setMessage("Sorry, no route was found.");
           }
         })
+        .catch((error) => {
+          setMessage(
+            "Sorry, something went wrong with our mapping. Try again shortly!"
+          );
+        });
+      //*The actual axios API call for the map display:
+      axios({
+        url: "https://www.mapquestapi.com/staticmap/v5/map",
+        method: "GET",
+        dataResponse: "json",
+        params: {
+          key: "GajCx4GDQ4BbxuYSyMwSYdn9B65f9Vnx",
+          start: newLocation,
+          end: newDestination,
+        },
+      })
+        .then((resp) => {
+          setMapRoute(resp.request.responseURL);
+        })
         .catch(() => {
-          setMessage("Sorry, something went wrong. Try again shortly!");
+          setMessage(
+            "Sorry, something went wrong with our mapping. Try again shortly!"
+          );
         });
     }
-    //*The actual axios API call for the map display:
-    axios({
-      url: "https://www.mapquestapi.com/staticmap/v5/map",
-      method: "GET",
-      dataResponse: "json",
-      params: {
-        key: "GajCx4GDQ4BbxuYSyMwSYdn9B65f9Vnx",
-        start: newLocation,
-        end: newDestination,
-      },
-    })
-      .then((resp) => {
-        setMapRoute(resp.request.responseURL);
-      })
-      .catch(() => {
-        setMessage("Sorry, something went wrong. Try again shortly!");
-      });
   };
 
   //**Setting new parameters in order to reformat the walkTime that we received from the API call above:
@@ -181,18 +192,18 @@ const Form = () => {
       maxLength = totalBikeMinutes + 10;
     } else {
       minLength = 0;
-      maxLength = 1000;
+      maxLength = 6000;
     }
     setPodcastList([]);
 
     //conditional statement to have podcasts be + or - 10 minutes of the travel time.
     if (podcastSearch.trim() === "") {
-      setMessage("Please enter a valid search");
+      setMessage("Please enter a valid podcast search");
 
       //*The actual API call to the Podcast:
       //Axios was not used for this, instead we installed a module from the website.
-    } else {
-      setMessage("Please wait, results are loading");
+    } else if (maxLength <= 6000) {
+      setMessage("Please wait, podcasts are loading");
       const { Client } = require("podcast-api");
       const client = Client({ apiKey: "84ea935001f44836a966c059250896de" });
       client
@@ -211,7 +222,7 @@ const Form = () => {
           setMessage("");
           if (response.data.results.length === 0) {
             setMessage(
-              "Sorry, we couldn't find a podcast like that, try a different search!"
+              "Sorry, we couldn't find any podcasts like that, try a different search!"
             );
 
             //Refer to lines 156 to 163.
@@ -235,6 +246,9 @@ const Form = () => {
           );
         });
     }
+    else {
+      setMessage("Sorry, we couldn't find any podcasts that match the length of your trip, try a different search!");
+    }
   };
 
   //**The structure:
@@ -254,7 +268,7 @@ const Form = () => {
         className="podcastForm"
       >
         <label htmlFor="podSearch">
-          What podcast do you want to listen to?
+          What kind of podcast do you want to listen to?
         </label>
         <input
           onChange={handlePodcastSearchChange}

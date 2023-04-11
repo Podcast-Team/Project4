@@ -4,8 +4,8 @@
 const PodcastInfo = (props) => {
   return (
     <>
+    <h2 className={ props.message ? 'messageBorder' : null }>{props.message}</h2>
       <ul className="podcastList">
-        <h2>{props.message}</h2>
         {props.podcast.map((podcastList) => {
           const lengthInMin = Math.round(podcastList.audio_length_sec / 60);
 
@@ -13,6 +13,7 @@ const PodcastInfo = (props) => {
             <li key={podcastList.id}>
               <h3>
                 <a href={podcastList.website} target="_blank">
+                <span className="sr-only">Opens in new tab: </span>
                   {podcastList.title_original}
                 </a> {" "}
                 - duration: {lengthInMin} min
