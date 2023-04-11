@@ -1,7 +1,7 @@
 import "./styles/sass/style.css";
 import Form from "./components/Form.js";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <header>

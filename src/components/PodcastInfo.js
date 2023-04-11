@@ -1,7 +1,5 @@
-//Podcast COmponent 
-// Displays the results for the podcast search
-// Display API call Podcast data 
-
+//Podcast Component 
+// This component displays the results of the podcast search and the API call podcast data.
 
 const PodcastInfo = (props) => {
   return (

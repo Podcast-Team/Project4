@@ -1,10 +1,8 @@
-//Component for when the user decides on their method of travel 
-//BikeOrWalk will via props, hold the travel time data that was received first in the Form component via the MapQuest API call 
-// It will then display the travel time, userChoice, and Map (line 31 to be specific)
+//Component for when the user decides on their method of travel:
+//BikeOrWalk will, via props, hold the travel time data that was received first in the Form component via the MapQuest API call.
+// It will then display the travel time, userChoice, and Map (line 31 to be specific).
 
 const BikeOrWalk = (props) => {
-
-
   return (
     <div className="travel">
       {props.walkTime &&
@@ -30,8 +28,8 @@ const BikeOrWalk = (props) => {
               <img
                 src={props.mapRoute}
                 alt={`A map of the route from ${props.location} to ${props.destination}`}
-                //Whenever we want to type JS into react we must use ${} and ` within {}
-                //How to properly use template literals 
+                //How to properly use template literals in React: 
+                //Whenever we want to type JS into React we must use ${} and ` within {}.
               />
             </div>
           </p>
@@ -44,12 +42,12 @@ const BikeOrWalk = (props) => {
                   props.handleUserChoice(event, event.target.firstChild.value);
                   props.handleSubmit(event, event.target.firstChild.value);
                 }}
-                //OnSubmit passes the value back to form -> propping data back up to form 
+                //OnSubmit passes the value back to form -> propping data back up to form. 
               >
                 <button type="submit" value="walk">
                   I want to walk
                 </button>
-                {/* Button just to actually submit the preference to Walk and the walk time data back up to Form component  */}
+                {/* Button just to actually submit the preference to walk and the walk time data back up to Form component.  */}
               </form>
               
             </li>
@@ -65,12 +63,12 @@ const BikeOrWalk = (props) => {
                   I want to bike
                 </button>
               </form>
-              {/* refer to line 47 and 52 for the process */}
+              {/* refer to line 47 and 52 for the process. */}
             </li>
           </ul>
         </>
       ) : null}
-      {/* Null is a conditional | If the walktime and biketime is non-existent then we display nothing/null*/}
+      {/* Null is a conditional | If the walktime and biketime is non-existent then we display nothing/null.*/}
     </div>
   );
 };

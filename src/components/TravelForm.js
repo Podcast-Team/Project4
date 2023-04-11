@@ -1,20 +1,19 @@
-//Component for TravelForm with Autocomplete address 
+//Component for TravelForm with Autocomplete address:
 import React, { useState, useRef, useEffect } from "react";
 
-//This is the form for the Travel address 
-
+//**This is the form for the Travel address:
 const TravelForm = (props) => {
   const travelFromRef = useRef();
   const travelToRef = useRef();
   const inputLocation = useRef();
   const inputDestination = useRef();
-  //We had to use useRef hook to listen for change in user input when the user was clicking on the suggested address 
+  //We had to use useRef hook to listen for change in user input when the user was clicking on the suggested address.
   const options = {
     componentRestrictions: { country: "ca" },
   };
-  //Const options has us restricting the search address to Canada -> helps limit results so we don't get overloaded suggestions 
+  //Const options has us restricting the search address to Canada -> helps limit results so we don't get overloaded suggestions.
 
-  //useState's are being utilized to keep track of the location and destination states 
+  //useStates are being utilized to keep track of the location and destination states.
   const [location, setLocation] = useState("");
   const [destination, setDestination] = useState("");
 
@@ -27,8 +26,8 @@ const TravelForm = (props) => {
     setDestination(e.target.value);
   };
 
-//This useEffect has us listening for when the user clicks on the suggested autocomplete address 
-
+  
+//**This useEffect has us listening for when the user clicks on the suggested autocomplete address:
   useEffect(() => {
     travelFromRef.current = new window.google.maps.places.Autocomplete(
       inputLocation.current,
@@ -37,7 +36,7 @@ const TravelForm = (props) => {
     travelFromRef.current.addListener("place_changed", async function () {
       const place = await travelFromRef.current.getPlace();
       setLocation(place.formatted_address);
-      //We are updating the state of the location when the autocomplete suggested state is clicked 
+      //We are updating the state of the location when the autocomplete suggested state is clicked.
     });
     travelToRef.current = new window.google.maps.places.Autocomplete(
       inputDestination.current,
@@ -46,11 +45,12 @@ const TravelForm = (props) => {
     travelToRef.current.addListener("place_changed", async function () {
       const placeTo = await travelToRef.current.getPlace();
       setDestination(placeTo.formatted_address);
-      //We are updating the state of the destination when the autocomplete suggested state is clicked 
+      //We are updating the state of the destination when the autocomplete suggested state is clicked.
     });
   }, []);
 
-//The display portion of the autocomplete stretch goal 
+
+//**The display portion of the autocomplete stretch goal:
   return (
     <form
       className="travelForm"
