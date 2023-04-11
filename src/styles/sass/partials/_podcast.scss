@@ -1,9 +1,9 @@
 @use "./variables" as *;
 
 img {
-    display: block;
-    width: 100%;
-    height: auto;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 ul {
@@ -30,18 +30,26 @@ ul {
   }
 }
 
+.podcastList li {
+  border-bottom: 0;
+  border-top: 1px solid $primary;
+  &:first-of-type {
+    border-top: 0;
+  }
+}
+
 .podInfo {
-    display: flex;
-    flex-direction: column;
-    .podDesc {
-        min-height: 100%;
-        overflow-y: scroll;
-        border: 2px solid $primary;
-        padding: 0.75rem;
-        margin: 0;
-        display: block;
-        max-height: 15rem;
-      }
+  display: flex;
+  flex-direction: column;
+  .podDesc {
+    min-height: 100%;
+    overflow-y: scroll;
+    border: 2px solid $primary;
+    padding: 0.75rem;
+    margin: 0;
+    display: block;
+    max-height: 15rem;
+  }
 }
 
 h2,
@@ -50,13 +58,19 @@ h3 {
   text-align: center;
 }
 
-h3 a:hover, h3 a:focus-visible {
-color: $secondary;
-outline: none;
+.messageBorder {
+  border-top: 1px solid $primary;
+  padding-top: 1rem;
+}
+
+h3 a:hover,
+h3 a:focus-visible {
+  color: $secondary;
+  outline: none;
 }
 
 @media (min-width: 700px) {
-    .podInfo {
-        flex-direction: row;
-    }
+  .podInfo {
+    flex-direction: row;
+  }
 }
