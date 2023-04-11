@@ -10,7 +10,7 @@ const BikeOrWalk = (props) => {
       props.walkTime !== "0" &&
       props.bikeTime !== "0" ? (
         <>
-          <h2>Would you like to walk or ride a bike?</h2>
+          <h2 className="messageBorder">Would you like to walk or ride a bike?</h2>
           <p>
             <em>
               Disclaimer: We do not recommend wearing headphones while riding

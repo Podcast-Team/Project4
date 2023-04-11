@@ -456,9 +456,6 @@ h3 a:focus-visible {
     flex-direction: row;
   }
 }
-.travel {
-  border-top: 1px solid #C2EDD8;
-}
 .travel p {
   text-align: center;
 }
