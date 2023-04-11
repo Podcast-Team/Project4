@@ -22,22 +22,29 @@ const TravelFrom = (props) => {
   };
 
   useEffect(() => {
-    travelFromRef.current = new window.google.maps.places.Autocomplete(
-      inputLocation.current,
-      options
-    );
-    travelFromRef.current.addListener("place_changed", async function () {
-      const place = await travelFromRef.current.getPlace();
-      setLocation(place.formatted_address);
-    });
-    travelToRef.current = new window.google.maps.places.Autocomplete(
-      inputDestination.current,
-      options
-    );
-    travelToRef.current.addListener("place_changed", async function () {
-      const placeTo = await travelToRef.current.getPlace();
-      setDestination(placeTo.formatted_address);
-    });
+    
+    const script = document.getElementById('googleScript')
+
+     script.addEventListener("load", () =>{
+      travelFromRef.current = new window.google.maps.places.Autocomplete(
+        inputLocation.current,
+        options
+      );
+      travelFromRef.current.addListener("place_changed", async function () {
+        const place = await travelFromRef.current.getPlace();
+        setLocation(place.formatted_address);
+        //We are updating the state of the location when the autocomplete suggested state is clicked 
+      });
+      travelToRef.current = new window.google.maps.places.Autocomplete(
+        inputDestination.current,
+        options
+      );
+      travelToRef.current.addListener("place_changed", async function () {
+        const placeTo = await travelToRef.current.getPlace();
+        setDestination(placeTo.formatted_address);
+        //We are updating the state of the destination when the autocomplete suggested state is clicked 
+      });
+     })
   }, []);
 
   return (
