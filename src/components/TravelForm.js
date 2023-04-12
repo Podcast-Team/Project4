@@ -87,4 +87,4 @@ const TravelForm = (props) => {
   );
 };
 
-export default TravelFrom;
+export default TravelForm;
