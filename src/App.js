@@ -11,7 +11,7 @@ const App = () => {
       </header>
       <main>
         <div className="wrapper">
-          <p class="intro">Got somewhere you need to go? Tell us where you're traveling from and to, and then search for a podcast you'd like to listen to. Then simply let us know if you prefer to walk or to bike, and we'll find podcasts for you that matches your trip duration! Please note that locations have to be within Canada.</p>
+          <p className="intro">Got somewhere you need to go? Tell us where you're traveling from and to, and then search for a podcast you'd like to listen to. Then simply let us know if you prefer to walk or to bike, and we'll find podcasts for you that matches your trip duration! Please note that locations have to be within Canada.</p>
           <Form />
         </div>
       </main>
