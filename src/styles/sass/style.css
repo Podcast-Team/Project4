@@ -290,6 +290,10 @@ main .wrapper {
   padding-top: 1rem;
 }
 
+.intro {
+  text-align: center;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -309,6 +313,9 @@ form button {
   margin: 0.5rem auto;
 }
 
+.podcastForm {
+  padding: 0;
+}
 .podcastForm label {
   text-align: center;
   padding-bottom: 0.5rem;
@@ -355,6 +362,9 @@ footer {
   bottom: 0;
   width: 100%;
   text-align: center;
+  border-top: 1px solid #C2EDD8;
+  display: flex;
+  align-items: center;
 }
 footer p {
   margin: 0;
@@ -402,6 +412,14 @@ ul a {
   color: #C2EDD8;
 }
 
+.podcastList li {
+  border-bottom: 0;
+  border-top: 1px solid #C2EDD8;
+}
+.podcastList li:first-of-type {
+  border-top: 0;
+}
+
 .podInfo {
   display: flex;
   flex-direction: column;
@@ -422,7 +440,13 @@ h3 {
   text-align: center;
 }
 
-h3 a:hover, h3 a:focus-visible {
+.messageBorder {
+  border-top: 1px solid #C2EDD8;
+  padding-top: 1rem;
+}
+
+h3 a:hover,
+h3 a:focus-visible {
   color: #D3CFE6;
   outline: none;
 }
@@ -437,7 +461,16 @@ h3 a:hover, h3 a:focus-visible {
 }
 .travel li {
   padding-bottom: 0;
-  padding-right: 1rem;
+}
+.travel button {
+  padding: 0.4rem;
+  margin: 1rem auto;
+  margin-top: 0;
+  display: block;
+}
+
+.travelDisplay {
+  border-top: 1px solid #C2EDD8;
 }
 
 span {
@@ -478,6 +511,28 @@ span {
 @media (min-width: 480px) {
   .travel ul {
     flex-direction: row;
+  }
+  .travel ul li {
+    padding-right: 1rem;
+  }
+}
+@media (min-width: 770px) {
+  .travel .travelDisplay {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .travel .travelDisplay .mapContainer {
+    margin: 0;
+  }
+  .travel ul {
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .travel ul li {
+    border-bottom: 0;
+  }
+  .travel ul li p {
+    font-size: 1.2rem;
   }
 }
 body {

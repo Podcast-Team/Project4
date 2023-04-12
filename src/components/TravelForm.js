@@ -1,15 +1,20 @@
+//Component for TravelForm with Autocomplete address:
 import React, { useState, useRef, useEffect } from "react";
 
-const TravelFrom = (props) => {
+//**This is the form for the Travel address:
+const TravelForm = (props) => {
   const travelFromRef = useRef();
   const travelToRef = useRef();
   const inputLocation = useRef();
   const inputDestination = useRef();
+  //We had to use useRef hook to listen for change in user input when the user was clicking on the suggested address.
   const options = {
     types: ["address"],
     componentRestrictions: { country: "ca" },
   };
+  //Const options has us restricting the search address to Canada -> helps limit results so we don't get overloaded suggestions.
 
+  //useStates are being utilized to keep track of the location and destination states.
   const [location, setLocation] = useState("");
   const [destination, setDestination] = useState("");
 
@@ -21,11 +26,12 @@ const TravelFrom = (props) => {
     setDestination(e.target.value);
   };
 
+  //**This useEffect has us listening for when the user clicks on the suggested autocomplete address:
   useEffect(() => {
-    
-    const script = document.getElementById('googleScript')
-
-     script.addEventListener("load", () =>{
+    const script = document.getElementById("googleScript");
+    // Here we use the script variable with a 'load' event listener to ensure the Google API loads before it's rendered on the page, thus avoiding any errors on page-load.
+    // Although we try our best to avoid using DOM manipulation in React, we found this to be our best solution. The DOM will only be utilized once on page load and won't create any further issues.
+    script.addEventListener("load", () => {
       travelFromRef.current = new window.google.maps.places.Autocomplete(
         inputLocation.current,
         options
@@ -33,7 +39,7 @@ const TravelFrom = (props) => {
       travelFromRef.current.addListener("place_changed", async function () {
         const place = await travelFromRef.current.getPlace();
         setLocation(place.formatted_address);
-        //We are updating the state of the location when the autocomplete suggested state is clicked 
+        //We are updating the state of the location when the autocomplete suggested state is clicked.
       });
       travelToRef.current = new window.google.maps.places.Autocomplete(
         inputDestination.current,
@@ -42,11 +48,12 @@ const TravelFrom = (props) => {
       travelToRef.current.addListener("place_changed", async function () {
         const placeTo = await travelToRef.current.getPlace();
         setDestination(placeTo.formatted_address);
-        //We are updating the state of the destination when the autocomplete suggested state is clicked 
+        //We are updating the state of the destination when the autocomplete suggested state is clicked.
       });
-     })
+    });
   }, []);
 
+  //**The display portion of the autocomplete stretch goal:
   return (
     <form
       onSubmit={(event) => {

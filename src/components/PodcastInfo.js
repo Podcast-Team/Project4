@@ -1,20 +1,27 @@
-//Podcast COmponent 
-// Displays the results for the podcast search
-// Display API call Podcast data 
-
+//Podcast Component 
+// This component displays the results of the podcast search and the API call podcast data.
 
 const PodcastInfo = (props) => {
+  function removeTags(str) {
+    // Regular expression to identify HTML tags in
+    // the input string. Replacing the identified
+    // HTML tag with a null string.
+    return str.replace( /(<([^>]+)>)/ig, '');
+}
+
   return (
     <>
+    <h2 className={ props.message ? 'messageBorder' : null }>{props.message}</h2>
       <ul className="podcastList">
-        <h2>{props.message}</h2>
         {props.podcast.map((podcastList) => {
           const lengthInMin = Math.round(podcastList.audio_length_sec / 60);
+          const newDescription = removeTags(podcastList.description_original)
 
           return (
             <li key={podcastList.id}>
               <h3>
                 <a href={podcastList.website} target="_blank">
+                <span className="sr-only">Opens in new tab: </span>
                   {podcastList.title_original}
                 </a> {" "}
                 - duration: {lengthInMin} min
@@ -26,7 +33,7 @@ const PodcastInfo = (props) => {
                     alt={`Podcast logo for: ${podcastList.title_original}`}
                   />
                 </div>
-                <p className="podDesc">{podcastList.description_original}</p>
+                <p className="podDesc">{newDescription}</p>
               </div>
             </li>
           );
